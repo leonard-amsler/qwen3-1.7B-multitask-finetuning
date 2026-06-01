@@ -1,0 +1,29 @@
+--extra-index-url https://download.pytorch.org/whl/cu128
+numpy
+huggingface_hub
+datasets
+transformers
+torch
+pyarrow
+torchvision
+torchaudio
+tokenizers
+black
+ipykernel
+pyyaml
+sentencepiece
+orjson
+peft
+wandb
+hydra-core
+vllm
+#opencompass
+lightning
+accelerate
+tqdm
+openai
+pandas
+matplotlib
+seaborn
+vllm
+-e . # needs to run from the root of the repo /!\

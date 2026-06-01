@@ -1,0 +1,23 @@
+[project]
+name = "fourneurons"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Nathan Gromb",email = "nathan.gromb@epfl.ch"}
+]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy",
+    "huggingface_hub",
+    "datasets",
+    "torch",
+    "transformers",
+]
+
+[tool.poetry]
+packages = [{include = "fourneurons", from = "."}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
