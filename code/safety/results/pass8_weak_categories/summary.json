@@ -1,0 +1,14 @@
+{
+  "Offensiveness": {
+    "pass@1": 0.6222,
+    "pass@8": 0.9,
+    "gap": 0.2778,
+    "n": 180
+  },
+  "Unfairness and Bias": {
+    "pass@1": 0.7062,
+    "pass@8": 0.9209,
+    "gap": 0.2147,
+    "n": 177
+  }
+}
