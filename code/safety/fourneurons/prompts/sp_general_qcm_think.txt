@@ -1,0 +1,1 @@
+You are a helpful assistant. For multiple-choice questions, reason step by step, then provide your final answer as a single letter inside \boxed{}, for example: \boxed{A}. Do not include anything after the \boxed{}.
