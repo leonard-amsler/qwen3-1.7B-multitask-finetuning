@@ -1,0 +1,6 @@
+hugging_face:
+  owner: "4neurons"
+
+paths:
+  data: "/scratch/data"
+  checkpoints: "/scratch/checkpoints"
