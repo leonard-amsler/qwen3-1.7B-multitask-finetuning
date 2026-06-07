@@ -11,7 +11,7 @@ MODEL_PATH = MODEL_PATH + os.listdir(MODEL_PATH)[0]
 
 INPUT_FILE = "/scratch/data/safety/safetybench/splits/safetybench_train.jsonl"
 OUTPUT_FILE = "/scratch/data/safety/safetybench/cot/safetybench_train_cot.jsonl"
-SYSTEM_PROMPT_FILE = "/scratch/nico/standard-project-m2-4neurons/prompts/sp_general_qcm_think.txt"
+SYSTEM_PROMPT_FILE = "/scratch/nico/standard-project-m3-4neurons/code/safety/fourneurons/prompts/sp_general_qcm_think.txt"
 
 MAX_ATTEMPTS = 8
 TEMPERATURE = 0.7

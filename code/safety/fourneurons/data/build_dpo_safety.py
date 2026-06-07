@@ -57,7 +57,7 @@ def check_lengths(pairs, tokenizer, max_length):
             print(f"    len_chosen={t['len_chosen']}  len_rejected={t['len_rejected']}")
 
 
-def build_dpo_pairs(all_categories=False):
+def build_dpo_pairs(merged_sft_dir, all_categories=False):
     """
     Build DPO pairs from pass@8 results on the train split.
 
@@ -108,7 +108,7 @@ def build_dpo_pairs(all_categories=False):
     for cat, n in sorted(cat_counts.items(), key=lambda x: x[1]):
         print(f"  {cat:<35} {n}")
 
-    tokenizer = AutoTokenizer.from_pretrained(MERGED_SFT_DIR)
+    tokenizer = AutoTokenizer.from_pretrained(merged_sft_dir)
     check_lengths(dpo_pairs, tokenizer, max_length=DPO_MAX_LENGTH)
 
     with open(output_file, "w") as f:
@@ -120,9 +120,15 @@ def build_dpo_pairs(all_categories=False):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
+        "--merged_sft_dir",
+        type=str,
+        required=True,
+        help="Directory containing the merged SFT model and tokenizer.",
+    )
+    parser.add_argument(
         "--all_categories",
         action="store_true",
         help="Use all categories. Default: only weak categories (Unfairness and Bias, Offensiveness).",
     )
     args = parser.parse_args()
-    build_dpo_pairs(all_categories=args.all_categories)
+    build_dpo_pairs(merged_sft_dir=args.merged_sft_dir, all_categories=args.all_categories)

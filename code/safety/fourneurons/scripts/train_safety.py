@@ -15,7 +15,7 @@ MODEL_PATH = SNAPSHOT_DIR + os.listdir(SNAPSHOT_DIR)[0]
 SPLITS_DIR = "/scratch/data/safety/safetybench/cot"
 run_id = datetime.now().strftime("%Y%m%d-%H%M%S")
 OUTPUT_DIR = f"/scratch/checkpoints/safety/{run_id}"
-PROMPT_FILE = "/scratch/nico/standard-project-m2-4neurons/prompts/sp_general_qcm_think.txt"
+PROMPT_FILE = "/scratch/nico/standard-project-m3-4neurons/code/safety/fourneurons/prompts/sp_general_qcm_think.txt"
 
 # Data loading:
 tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)

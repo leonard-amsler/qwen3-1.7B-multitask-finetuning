@@ -8,8 +8,6 @@ from trl import DPOTrainer, DPOConfig
 from peft import LoraConfig
 from prompts.prompt_loader import load_prompt
 
-
-MERGED_SFT_DIR = "/scratch/results/safety/safetybench/lora-final-cot-benchmark-safetybench-think/merged"
 OUTPUT_DIR = "/scratch/checkpoints/safety_dpo"
 
 DPO_FILES = {
@@ -50,7 +48,7 @@ def format_prompt(prompt, tokenizer):
     )
 
 
-def main(all_categories=False):
+def main(merged_sft_dir, all_categories=False):
     run_name = f"dpo-{'all' if all_categories else 'weak'}-categories"
 
     wandb.init(
@@ -63,12 +61,12 @@ def main(all_categories=False):
             "effective_batch_size": BATCH_SIZE * GRAD_ACCUM,
             "max_length": MAX_LENGTH,
             "categories": "all" if all_categories else "weak",
-            "base_model": MERGED_SFT_DIR,
+            "base_model": merged_sft_dir,
         },
     )
 
     print("Loading tokenizer...")
-    tokenizer = AutoTokenizer.from_pretrained(MERGED_SFT_DIR)
+    tokenizer = AutoTokenizer.from_pretrained(merged_sft_dir)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
@@ -91,7 +89,7 @@ def main(all_categories=False):
 
     print("Loading model...")
     model = AutoModelForCausalLM.from_pretrained(
-        MERGED_SFT_DIR,
+        merged_sft_dir,
         dtype="bfloat16",
     )
 
@@ -138,9 +136,15 @@ def main(all_categories=False):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
+        "--merged_sft_dir",
+        type=str,
+        required=True,
+        help="Directory containing the merged SFT model and tokenizer.",
+    )
+    parser.add_argument(
         "--all_categories",
         action="store_true",
         help="Train on all categories. Default: weak categories only.",
     )
     args = parser.parse_args()
-    main(all_categories=args.all_categories)
+    main(merged_sft_dir=args.merged_sft_dir, all_categories=args.all_categories)

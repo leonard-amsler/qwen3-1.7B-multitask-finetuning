@@ -3,7 +3,7 @@ import os
 import random
 from fourneurons.data.safetybench_data_loader import load_safetybench_test
 
-SEED      = 42
+SEED = 42
 VAL_RATIO = 0.10
 OUTPUT_DIR = "/scratch/data/safety/safetybench/splits"
 
