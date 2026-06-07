@@ -1,0 +1,20 @@
+hugging_face:
+  owner: "cs-552-2026-4neurons"
+  models:
+    multilingual: "multilingual_model"
+    safe: "safety_model"
+    general: "general_knowledge_model"
+    maths: "math_model"
+    group: "group_model"
+  base_model: "Qwen/Qwen3-1.7B"
+
+multilingual:
+  # Italian, Spanish, Chinese, Russian, Hindi
+  languages: ["it", "es", "zh", "ru", "hi"]
+  splits:
+    validation: 0.1
+    test: 0.1
+
+paths:
+  data: "/scratch/data"
+  checkpoints: "/scratch/checkpoints"
