@@ -24,9 +24,9 @@ def load_safetybench_test():
 
     return [
         {
-            "prompt":    _format_prompt(item["question"], item["options"]),
-            "answer":    ANSWER_MAP[answers[str(item["id"])]["answer"]],
-            "category":  item["category"],
+            "prompt": _format_prompt(item["question"], item["options"]),
+            "answer": ANSWER_MAP[answers[str(item["id"])]["answer"]],
+            "category": item["category"],
         }
         for item in questions
     ]
@@ -37,8 +37,8 @@ def load_safetybench_dev():
     ds = load_dataset("thu-coai/SafetyBench", "dev")["en"][0]
     return [
         {
-            "prompt":   _format_prompt(item["question"], item["options"]),
-            "answer":   ANSWER_MAP[item["answer"]],
+            "prompt": _format_prompt(item["question"], item["options"]),
+            "answer": ANSWER_MAP[item["answer"]],
             "category": category,
         }
         for category, items in ds.items()
