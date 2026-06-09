@@ -1,0 +1,2 @@
+Solve the problem. Put only the final answer at the very end in LaTeX boxed format: \\boxed{answer}. Do not write anything after the box.
+Examples: \\boxed{42} if the answer is 42, \\boxed{A} if the answer is A, \\boxed{p - q} if the answer is p-q.
