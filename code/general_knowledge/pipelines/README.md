@@ -4,9 +4,6 @@ Required base model: **`Qwen/Qwen3-1.7B`**. Each script reproduces one part of t
 report end-to-end (data → SFT/DPO → merge → **GK benchmark eval**) and writes a
 vLLM-ready checkpoint to `/scratch/checkpoints/gk_<name>/vllm`.
 
-> Scripts **do not push to HuggingFace** — they stop after local evaluation.
-> To submit, manually upload the corresponding `vllm/` directory.
-
 ## Scripts
 
 These map one-to-one to what is described in the report.
