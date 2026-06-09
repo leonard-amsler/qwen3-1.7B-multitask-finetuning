@@ -1,3 +1,5 @@
+"""Score GK generations with CI knowledge extraction and per-bucket reports."""
+
 from __future__ import annotations
 
 import argparse
@@ -47,6 +49,8 @@ def _score(items: list[dict]) -> dict:
     """Returns a dict with per-row stats and aggregate buckets."""
     per_row: list[dict] = []
     n_completions = None
+    n_boxed = 0
+    n_total_comps = 0
 
     for i, it in enumerate(items):
         completions = it.get("completions") or []
@@ -63,7 +67,11 @@ def _score(items: list[dict]) -> dict:
         reference = str(it.get("answer") or it.get("reference") or "")
         c = 0
         for comp in completions:
-            extracted = extract_benchmark_answer(str(comp), METHOD, reference)
+            text = str(comp)
+            n_total_comps += 1
+            if "\\boxed{" in text:
+                n_boxed += 1
+            extracted = extract_benchmark_answer(text, METHOD, reference)
             if is_correct_benchmark_answer(extracted, reference, METHOD):
                 c += 1
         per_row.append({
@@ -98,11 +106,14 @@ def _score(items: list[dict]) -> dict:
     by_macro = _agg(lambda r: r["meta"].get("macro_cat", "?"))
     by_k = _agg(lambda r: _k_bucket(int(r["meta"].get("n_options") or 0)))
 
+    boxed_compliance = (n_boxed / n_total_comps) if n_total_comps else 0.0
+
     return {
         "n_problems": n_problems,
         "n_completions": n,
         "pass@1": pass_at_1,
         "pass@8": pass_at_8,
+        "boxed_compliance": boxed_compliance,
         "by_source": by_source,
         "by_macro_cat": by_macro,
         "by_n_options_bucket": by_k,
@@ -116,6 +127,9 @@ def _print_report(report: dict) -> None:
     print(f"pass@1       : {report['pass@1']:.4f}")
     if report["pass@8"] is not None:
         print(f"pass@8       : {report['pass@8']:.4f}")
+    if report.get("boxed_compliance") is not None:
+        print(f"boxed comply : {report['boxed_compliance']:.4f} "
+              f"({100*report['boxed_compliance']:.1f}%)")
 
     def _print_block(title: str, data: dict, key_order=None) -> None:
         if not data:

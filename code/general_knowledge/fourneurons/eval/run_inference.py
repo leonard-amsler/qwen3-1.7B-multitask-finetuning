@@ -1,3 +1,5 @@
+"""Run vLLM inference on a GK JSONL dev set and write completions."""
+
 from __future__ import annotations
 
 import argparse
@@ -119,6 +121,13 @@ def main(argv: list[str] | None = None) -> int:
         help="Optional cap on number of problems (debugging).",
     )
     parser.add_argument(
+        "--system_prompt",
+        type=str,
+        default=None,
+        help="Optional system prompt prepended to every question (e.g. a "
+        "format-encouraging instruction). Omit for the no-prompt baseline.",
+    )
+    parser.add_argument(
         "--temperature",
         type=float,
         default=None,
@@ -177,7 +186,10 @@ def main(argv: list[str] | None = None) -> int:
 
     prompts: list[str] = []
     for it in items:
-        messages = [{"role": "user", "content": it["prompt"]}]
+        messages = []
+        if args.system_prompt:
+            messages.append({"role": "system", "content": args.system_prompt})
+        messages.append({"role": "user", "content": it["prompt"]})
         prompts.append(
             tokenizer.apply_chat_template(
                 messages, tokenize=False, add_generation_prompt=True
