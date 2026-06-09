@@ -23,8 +23,7 @@ GK_BENCH="${GK_BENCH:-validation_samples/general_knowledge_dev_full.jsonl}"
 N_SAMPLES="${N_SAMPLES:-8}"   # 8 = reliable metric (like CI); 1 = quick smoke test
 
 # Format-encouraging system prompt for the "Base (sp)" baseline (override via env).
-FORMAT_PROMPT="${FORMAT_PROMPT:-Answer the multiple-choice question. Reason step by step, then give your final answer as a single letter inside \\boxed{}, e.g. \\boxed{A}. Do not write anything after the box.}"
-
+FORMAT_PROMPT="${FORMAT_PROMPT:-You are answering a multiple-choice question. Carefully read the full question, all answer choices, and any relevant context before selecting an answer. Work through the problem step by step, making sure you understand what is being asked rather than simply matching keywords. Identify the key facts, constraints, definitions, formulas, or reasoning principles that apply. If the question includes numbers, equations, code, logic, or a scenario, analyze it carefully and verify each step of your reasoning. Compare the available answer choices one by one, eliminating options that are incorrect, incomplete, inconsistent with the question, or based on a misunderstanding. If more than one option seems plausible, explain why the correct option is better supported than the alternatives. Avoid guessing unless absolutely necessary; if uncertainty remains, make the most reasonable choice based on the evidence in the question. After completing the reasoning, provide the final selected answer clearly only if youre sure \\boxed{...} }"
 # Group model eval — trained with sp_group_think.txt (unlike GK SFT/DPO models).
 GROUP_MODEL="${GROUP_MODEL:-/scratch/checkpoints/group_model/learnable_cat_5e3}"
 GROUP_SP_FILE="${GROUP_SP_FILE:-$ROOT/fourneurons/prompts/sp_group_think.txt}"
